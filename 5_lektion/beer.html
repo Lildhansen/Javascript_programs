@@ -48,24 +48,24 @@
 	 fetch("http://localhost:8888/tree",{method = "POST"})
 	.then(isChecked);	*/
 
+	let beerTypes = {};
 
-	fetch("./beers.json").then(response => {
+	fetch("beers.json").then(response => {
             return response.json();
         }).then(data => {
-            beermenu = data;
+            beerTypes = data;
             console.log(data);
         }).catch(err => {
             console.log(err);
         });
 
-	let beerTypes=
+	/*let beerTypes=
 	{
 	ales: ["Bitter", "Pale Ale", "Brown Ale", "Trappist", "Porter",  "Weizenbier"],
 	lagers:["Pilsner", "Münchener", "Wiener", "Bock", "Porter"],
 	wilds: ["Gueuze", "Faro", "Fruit"]
-	};
+	};*/
 
-	console.log(beerTypes.ales);
 
 	function createSelectBeer(beerTypes)
 	{

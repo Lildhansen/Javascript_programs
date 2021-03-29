@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <title>IWP Demo</title>
+  <meta charset="UTF-8">
+</head>
+<script>
+
+function a(event) 
+{
+    let number = document.querySelector("#monkeyInput").value;
+    try
+    {
+        event.preventDefault();
+        if (1 <= number && number <= 5 && number % 1 === 0)
+        {
+            for (let i = 0;i<=number;i++)
+            {
+                console.log(number-i + " more monkeys jumping on the bed");
+                console.log(Number.isInteger(4.3));
+            }
+        }
+    }
+    catch(err)
+    {
+        if (err = number > 5)
+        {
+            console.log("too high")
+        }
+        else if (err = number < 1)
+        {
+            console.log("too low");
+        }
+        else if (err = !Number.isInteger(number))
+        {
+            console.log("no decimal numbers");
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+</script>
+
+<body>
+<form>
+Doctor: How many monkeys are jumping on the bed
+<input type='number' id='monkeyInput'>
+<input type="submit" id='submit'>
+</form>
+
+<script>
+let submit = document.querySelector("#submit");
+submit.addEventListener('click',a);
+/* let submit = document.querySelector("#submit").value;
+ */
+
+/* try
+{
+    let value = document.getElementById('monkeyInput').value;
+    console.log(value);
+}
+catch(err)
+{
+    console.log(err);
+} */
+
+
+</script>
+
+
+</body>

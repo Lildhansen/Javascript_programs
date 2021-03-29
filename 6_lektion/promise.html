@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <title>IWP Demo</title>
+  <meta charset="UTF-8">
+</head>
+
+
+<script>
+
+
+
+async function doSomeStuff()
+{
+    await new Promise((resolve,reject)=>{setTimeout(()=>{console.log("1");resolve();},2000)}); 
+    await new Promise((resolve,reject)=>{setTimeout(()=>{console.log("2");resolve();},2000)});
+    await new Promise((resolve,reject)=>{setTimeout(()=>{console.log("3");resolve();},2000)});
+    
+}
+
+function makeNewPromise()
+{
+    let p1 = new Promise((res,rej) => {setTimeout(x => res("3"),2000);})
+    return p1;
+}
+function doSomeStuff2()
+{
+    let p = new Promise((res,rej) => 
+    {
+        setTimeout(a => res("1"),2000); 
+    })
+    let p1 = new Promise((res,rej) => 
+    {
+        setTimeout(a => res("3"),2000); 
+    })
+    
+    p.then((mes)=>console.log(mes))
+    .then((()=>setTimeout(()=>{console.log("2");},2000)))
+    .then((()=>setTimeout(()=>{console.log("3");},2000))) /*3. gang virker ikke*/
+}
+/* p.then((mes)=>{console.log(mes)})
+    .then((b)=>{setTimeout((c)=>console.log("2"),2000); return "3"})
+    .then((d) => {p1 = makeNewPromise;p1.then((mes)=>{console.log(mes);})} */
+
+
+
+</script>
+
+<body>
+<button type="button" id="theButton">Tryk Her</button>
+
+
+</body>
+
+<script>
+
+let button = document.getElementById('theButton')
+button.addEventListener('click',doSomeStuff2);
+
+</script>
