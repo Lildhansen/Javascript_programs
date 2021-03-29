@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <title>IWP Demo</title>
+  <meta charset="UTF-8">
+</head>
+<body>   
+    <form id="beerForm">
+    <fieldset> <legend> Vælg Øl Type: </legend>
+        <input type="radio" name="gæringstype" value="overgæret" checked> Overgæret (Ale)       
+        <input type="radio" name="gæringstype" value="undergæret"> Undergæret (Lager)  
+        <input type="radio" name="gæringstype" value="vildgæret" > Vildtgæret (Lambic)
+        <input type="button" value="Start">
+		<br>
+
+	</fieldset>
+	
+    </form>
+    <script>
+    let Ale = document.querySelector("input[value=overgæret]")
+    let Lager = document.querySelector("input[value=undergæret]")
+    let Lambic = document.querySelector("input[value=vildgæret]")
+
+	function isChecked()
+	{
+		console.log(Ale.value + " - " + Ale.checked);
+		console.log(Lager.value + " - " + Lager.checked);
+		console.log(Lambic.value + " - " + Lambic.checked);
+	}
+	
+
+    let p = document.createElement("h1");
+    p.innerHTML = "Vælg en Øl-type";
+    document.body.prepend(p);
+
+    let startButton = document.querySelector("input[value=Start]");
+	startButton.addEventListener("click",isChecked);
+	/* Ale.addEventListener("change",isChecked);
+	Lager.addEventListener("change",isChecked);
+	Lambic.addEventListener("change",isChecked); */
+
+	/* let allBodyElements = document.body.querySelectorAll("*");
+	for (i = 0;i<allBodyElements.length;i++)
+	{
+		allBodyElements[i].addEventListener("mouseenter",(e)=>{console.log(e.target.value + ": " + 	e.target.nodeName + " - " + e.target.innerHTML);});
+	} */
+/* http://localhost:8888/tree 
+	 fetch("http://localhost:8888/tree",{method = "POST"})
+	.then(isChecked);	*/
+
+	let beerTypes = {};
+
+	fetch("beers.json").then(response => {
+            return response.json();
+        }).then(data => {
+            beerTypes = data;
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });
+
+	/*let beerTypes=
+	{
+	ales: ["Bitter", "Pale Ale", "Brown Ale", "Trappist", "Porter",  "Weizenbier"],
+	lagers:["Pilsner", "Münchener", "Wiener", "Bock", "Porter"],
+	wilds: ["Gueuze", "Faro", "Fruit"]
+	};*/
+
+
+	function createSelectBeer(beerTypes)
+	{
+		try{document.getElementById('beer-select').remove();} 
+        catch(e){console.log("firsttime");} 
+		let beerSelect = document.createElement('select');
+		beerSelect.id = 'beer-select'
+		document.body.appendChild(beerSelect);
+		for (i = 0;i<beerTypes.length;i++)
+		{
+			let option = document.createElement("option");
+			option.value = beerTypes[i];
+			option.text = beerTypes[i];
+			beerSelect.append(option);
+		}
+		document.body.append(beerSelect)
+	}
+
+	Ale.addEventListener("change",function(){createSelectBeer(beerTypes.ales)})
+	Lager.addEventListener("change",function(){createSelectBeer(beerTypes.lagers)})
+	Lambic.addEventListener("change",function(){createSelectBeer(beerTypes.wilds)})
+	/* <select name="pets" id="pet-select">
+		<option value="">--Please choose an option--</option>
+		<option value="dog">Dog</option>
+		<option value="cat">Cat</option>
+		<option value="hamster">Hamster</option>
+		<option value="parrot">Parrot</option>
+		<option value="spider">Spider</option>
+		<option value="goldfish">Goldfish</option>
+	</select> */
+
+
+    </script>   
+
+	<script /*src="http://people.cs.aau.dk/~bnielsen/IWP/test.js"*/></script>
+	
+</body>    
+</html>  
